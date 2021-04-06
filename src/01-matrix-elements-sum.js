@@ -14,8 +14,17 @@
  *
  * The result should be 9
  */
-function getMatrixElementsSum(/* matrix */) {
-  throw new Error('Not implemented');
+function getMatrixElementsSum(xss) {
+  function helper(o, x, i) {
+    if (o.exclude.has(i)) return o;
+    if (x === 0) o.exclude.add(i);
+    return { exclude: o.exclude, sum: o.sum + x };
+  }
+
+  return xss.reduce(
+    (obj, xs) => xs.reduce(helper, obj),
+    { exclude: new Set(), sum: 0 },
+  ).sum;
 }
 
 module.exports = getMatrixElementsSum;
