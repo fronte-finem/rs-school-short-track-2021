@@ -17,23 +17,27 @@
  * }
  */
 
+function nextNotK(xs, k) {
+  if (xs.next === null) return null;
+  if (xs.next.value === k) return xs.next.next;
+  return xs.next;
+}
+
 function removeKFromList(xs, k) {
-  class MyListNode {
-    constructor(x) {
-      this.value = x;
-      this.next = null;
-    }
+  let head = xs;
+  while (head !== null && head.value === k) {
+    head = head.next;
   }
-  const ys = MyListNode(xs.value);
-  let head = ys;
-  while (xs.next !== null) {
-    const { next } = head;
-    if (next.value !== k) {
-      head.next = next;
-      head = next;
-    }
+  if (head === null) return null;
+
+  let next = head;
+
+  while (next !== null) {
+    next.next = nextNotK(next, k);
+    next = next.next;
   }
-  return ys;
+
+  return head;
 }
 
 module.exports = removeKFromList;
