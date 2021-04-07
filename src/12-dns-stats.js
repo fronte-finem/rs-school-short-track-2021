@@ -29,7 +29,7 @@ function getDNSStats(domains) {
     }
   }
 
-  let arr = domains
+  const arr = domains
     .map((x) => x.split('.').reverse())
     .map((x) => ({ gen: gen(x), lvl: x.length }));
 
